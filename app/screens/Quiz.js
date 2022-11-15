@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
-const Quiz = ({navigation}) => {
+const Quiz = () => {
     const allQuestions = infor;
     const [currentQuestionIndex , setcurrentQuestionIndex] = useState(0)
     const [currentOptionSelect , setcurrentOptionSelect] = useState(null)
@@ -51,7 +51,7 @@ const Quiz = ({navigation}) => {
     const renderQuestion = () => {
         return(
             <View style={{
-                marginVertical: 10
+                marginVertical: 40
             }}>
                 {/*contador de preguntas*/}
                 <View style={{
@@ -64,7 +64,7 @@ const Quiz = ({navigation}) => {
                 {/*preguntas*/}
                 <Text style={{
                     color: COLORS.white,
-                    fontSize: 20,
+                    fontSize: 30,
 
                 }}
                 
@@ -93,7 +93,7 @@ const Quiz = ({navigation}) => {
                             : option == currentOptionSelect
                             ? COLORS.error + '20'
                             : COLORS.secondary+'20',
-                            height:90, borderRadius:20, 
+                            height:60, borderRadius:20, 
                             flexDirection: 'row',
                             alignItems: 'center', justifyContent: 'space-between',
                             paddingHorizontal: 20,
@@ -102,7 +102,7 @@ const Quiz = ({navigation}) => {
 
                         }}
                         >
-                            <Text style={{color: COLORS.white, fontSize: 15}} >{option}</Text>
+                            <Text style={{color: COLORS.white, fontSize: 20}} >{option}</Text>
 
                             {/*mostrar icono de check o equis si la pregunta es correcta*/}
                             {
@@ -191,12 +191,10 @@ const Quiz = ({navigation}) => {
         setcorrectOption(null);
         setisOptionsDisabled(false)
         setshowNextButton(false)
-        
         Animated.timing(progress, {
-            toValue: 0,
+            toValue: currentQuestionIndex+1,
             duration: 1000,
-            useNativeDriver: false,
-            
+            useNativeDriver: false
         }).start();
     }
 
@@ -266,42 +264,14 @@ const Quiz = ({navigation}) => {
 
                         </View>
                         {/*Comensar de nuevo*/}
-                        {
-                            score < 18 ? (
-                                <>
-                                    <TouchableOpacity onPress={restartQuiz} style={{
-                                        backgroundColor: COLORS.secondary,
-                                        padding: 20, width: '100%', borderRadius: 20
-                                    }}>
-                                        <Text style={{ 
-                                            textAlign: 'center', color:COLORS.white, fontSize: 20
-                                        }}> Reintentar</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPressOut={restartQuiz} onPress={() => navigation.navigate('Menu') } style={{
-                                    backgroundColor: COLORS.secondary,
-                                    padding: 20, width: '100%', borderRadius: 20 ,marginTop: 20
-                                    }}>
-                                    <Text  style={{ 
-                                        textAlign: 'center', color:COLORS.white, fontSize: 20
-                                    }}>Regresar a Menu</Text>
-                                 </TouchableOpacity>
-                                </>
-                                
-                                
-                            ):(
-                                <TouchableOpacity onPressOut={restartQuiz} onPress={() => navigation.navigate('Menu') } style={{
-                                    backgroundColor: COLORS.secondary,
-                                    padding: 20, width: '100%', borderRadius: 20
-                                }}>
-                                    <Text  style={{ 
-                                        textAlign: 'center', color:COLORS.white, fontSize: 20
-                                    }}>Regresar a Menu</Text>
-                                </TouchableOpacity>
-                                
-                            )
-
-                        }
-                        
+                        <TouchableOpacity onPress={restartQuiz} style={{
+                            backgroundColor: COLORS.secondary,
+                            padding: 20, width: '100%', borderRadius: 20
+                        }}>
+                            <Text style={{ 
+                                textAlign: 'center', color:COLORS.white, fontSize: 20
+                            }}> Reintentar</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
